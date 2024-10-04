@@ -2,14 +2,13 @@ import {Hono} from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { validateSigninSchema, signinType } from '../middleware'
-import * as jwt from 'jsonwebtoken'
-
-const JWT_PASSWORD = ''
+import * as jwt from 'hono/jwt'
 
 
 const signin = new Hono<{
     Bindings : {
-        DATABASE_URL : string
+        DATABASE_URL : string,
+        JWT_PASSWORD : string
     }
 }>()
 
@@ -31,9 +30,10 @@ signin.post('/', validateSigninSchema, async (c) => {
             }, 403)
         }
         if(requestBody.password === userExist.password){
+            const token = await jwt.sign({id : userExist.id}, c.env.JWT_PASSWORD)
             return c.json({
                 message : "User signed in successfully",
-                token : jwt.sign({id : userExist.id}, JWT_PASSWORD)
+                token
             },200)
         }
         return c.json({

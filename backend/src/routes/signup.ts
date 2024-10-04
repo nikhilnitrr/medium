@@ -2,13 +2,13 @@ import {Hono} from 'hono'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { PrismaClient } from '@prisma/client/edge'
 import { validateUserSchema, signupType } from '../middleware'
-import * as jwt from 'jsonwebtoken'
+import * as jwt from 'hono/jwt'
 
-const JWT_PASSWORD = ""
 
 const signup = new Hono<{
     Bindings : {
-        DATABASE_URL : string
+        DATABASE_URL : string,
+        JWT_PASSWORD : string
     }
 }>()
 
@@ -38,9 +38,10 @@ signup.post('/', validateUserSchema ,async (c) => {
                 password : requestBody.password
             }
         })
+        const token = await jwt.sign({id : userId.id}, c.env.JWT_PASSWORD)
         return c.json({
             message : "User created successfully",
-            token : jwt.sign({id : userId.id}, JWT_PASSWORD)
+            token
         }, 200)
     }
     catch(err){

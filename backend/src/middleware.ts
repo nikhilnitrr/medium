@@ -1,8 +1,6 @@
 import { z } from 'zod'
 import { Context, Next } from 'hono'
-import * as jwt from 'jsonwebtoken'
-
-const JWT_PASSWORD = ''
+import * as jwt from 'hono/jwt'
 
 const signupSchema = z.object({
     email: z.string().email(),
@@ -48,7 +46,7 @@ const validateUser = async (c: Context, next: Next) => {
         if (token) {
             const jwtToken = token.split(" ")[1]
             try {
-                const decode = jwt.verify(jwtToken, JWT_PASSWORD)
+                const decode = await jwt.verify(jwtToken, c.env.JWT_PASSWORD)
                 await next()
             }
             catch (err) {
