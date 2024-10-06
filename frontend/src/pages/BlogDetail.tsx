@@ -34,9 +34,25 @@ const BlogDetail = () => {
     return <>
         <Me setMeLoading={setMeLoading} successRoute={`/blog/${id}`} failureRoute="/signin" />
         {
-            meLoading ? "loading..." : <div>
+            meLoading ? <div role="status" className="max-w-sm animate-pulse">
+            <div className="h-2.5 bg-gray-200 rounded-full  w-48 mb-4"></div>
+            <div className="h-2 bg-gray-200 rounded-full  max-w-[360px] mb-2.5"></div>
+            <div className="h-2 bg-gray-200 rounded-full  mb-2.5"></div>
+            <div className="h-2 bg-gray-200 rounded-full  max-w-[330px] mb-2.5"></div>
+            <div className="h-2 bg-gray-200 rounded-full  max-w-[300px] mb-2.5"></div>
+            <div className="h-2 bg-gray-200 rounded-full  max-w-[360px]"></div>
+            <span className="sr-only"></span>
+        </div> : <div>
                 {loading ? null : <AppBar authorName={blog.author.firstName} />}
-                {loading ? "loading...." :
+                {loading ? <div role="status" className="max-w-sm animate-pulse">
+                <div className="h-2.5 bg-gray-200 rounded-full  w-48 mb-4"></div>
+                <div className="h-2 bg-gray-200 rounded-full  max-w-[360px] mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full  mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full  max-w-[330px] mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full  max-w-[300px] mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full  max-w-[360px]"></div>
+                <span className="sr-only"></span>
+            </div> :
                     <div className="grid grid-cols-12 h-screen">
                         <div className="col-span-8 text-center pt-10">
                             <div className="text-4xl font-semibold">{blog.title}</div>

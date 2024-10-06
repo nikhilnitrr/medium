@@ -40,6 +40,13 @@ blog.get("/id/:id", validateUser, async (c) => {
           title: true,
           content: true,
           authorId: true,
+          author : {
+            select : {
+              firstName : true,
+              lastName : true,
+              email : true
+            }
+          }
         },
       });
       return c.json({
@@ -124,6 +131,14 @@ blog.get("/bulk", validateUser, async (c) => {
         title: true,
         content: true,
         authorId: true,
+        id : true,
+        author : {
+          select : {
+            firstName : true,
+            lastName : true,
+            email : true 
+          }
+        }
       },
     });
     return c.json({
