@@ -8,7 +8,7 @@ type SubHeadingType = {
 }
 
 const SubHeading = ({subheading, link, linkText} : SubHeadingType) => {
-    return <div className="text-slate-500 text-md text-center">
+    return <div className="text-slate-500 text-lg text-center">
         <span>{subheading}</span>
         <span className="underline"><Link to={link}>{linkText}</Link></span>
     </div>

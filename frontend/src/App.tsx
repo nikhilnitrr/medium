@@ -1,4 +1,5 @@
 import './App.css'
+import { BlogDetail } from './pages/BlogDetail'
 import { Blog } from './pages/Blog'
 import { SignIn } from './pages/Signin'
 import { Signup } from './pages/Signup'
@@ -8,9 +9,10 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path= "/signup" element={<Signup/>}/>
+      <Route path= "/" element={<Signup/>}/>
       <Route path= "/signin" element={<SignIn/>}/>
-      <Route path= "/blog" element={<Blog/>}/>
+      <Route path= "/blogs" element={<Blog/>}/>
+      <Route path= "/blog/:id" element={<BlogDetail/>} />
     </Routes>
     </BrowserRouter>
   )
